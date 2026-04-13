@@ -1,0 +1,9 @@
+build/
+bin/
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+.vscode/
+Drivers/
