@@ -1,6 +1,5 @@
 #include "KEY.h"
 
-static  uint8_t last_key_state  = 0;
 
 void KEY_GPIO_Init (void)
 {
