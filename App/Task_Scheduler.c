@@ -25,6 +25,7 @@ void Start_Beep_Task(void)
     BEEP_ON;
     beep_start_time = HAL_GetTick();
     is_beeping = 1;
+    printf("Beep ON Tick:%lu\r\n", HAL_GetTick());
 }
 
 
@@ -42,7 +43,7 @@ void System_Task_Runner(void)
             LED_R_OFF; LED_G_OFF; LED_B_OFF;
             color = (color + 1) % 3;
             LED_TOGGLE[color]();
-            printf("Color changed to: %d\r\n", color);
+            printf("Color change Tick:%lu\r\n", HAL_GetTick());
         }
     }
     if ((HAL_GetTick() - last_led_task) >= 500)
