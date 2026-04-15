@@ -6,9 +6,8 @@
 #include "PWM.h"
 #include "Task_Scheduler.h"
 
-
 int main (void)
-{    
+{
     HAL_Init();
     LED_GPIO_Init();
     KEY_GPIO_Init();
@@ -16,6 +15,7 @@ int main (void)
     USART_Config();
     PWM_Init();
 
+    Task_Scheduler_Init();
 
     while (1)
     {
