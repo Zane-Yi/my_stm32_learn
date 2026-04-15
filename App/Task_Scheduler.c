@@ -3,10 +3,12 @@
 #include "LED.h"
 #include "BEEP.h"
 #include "USART.h"
+#include "PWM.h"
 #include "Task_Scheduler.h"
 
-void (*LED_TOGGLE[]) (void) = {LED_R_Real_Toggle,LED_B_Real_Toggle,LED_G_Real_Toggle};
+static uint8_t led_enabled = 0;
 
+PWM_Device_t* Led_PWM_Toggle[] = {&Red_Led, &Blue_Led, &Green_Led};
 
 static  uint32_t    beep_start_time     = 0;
 static  uint32_t    last_led_task       = 0;
@@ -37,20 +39,30 @@ void System_Task_Runner(void)
         if(KEY_Process(&KEY_beep) == KEY_ON)
         {
             Start_Beep_Task();
+            led_enabled ++;
+            if(led_enabled >= 2) led_enabled = 0;
+            __HAL_TIM_SET_COMPARE (Led_PWM_Toggle[color]->timer,Led_PWM_Toggle[color]->channel,0);
+
         }
         if(KEY_Process(&KEY_led) == KEY_ON)
         {
-            LED_R_OFF; LED_G_OFF; LED_B_OFF;
-            color = (color + 1) % 3;
-            LED_TOGGLE[color]();
-            printf("Color change Tick:%lu\r\n", HAL_GetTick());
+            __HAL_TIM_SET_COMPARE (Led_PWM_Toggle[color]->timer,Led_PWM_Toggle[color]->channel,0);
+            color ++;
+            if(color >= 3) color = 0;
         }
     }
-    if ((HAL_GetTick() - last_led_task) >= 500)
+
+
+    if ((HAL_GetTick() - last_led_task) >= 10)
     {
-        LED_TOGGLE[color]();
         last_led_task = HAL_GetTick();
+        if (led_enabled == 1)
+        {
+            PWM_Update(Led_PWM_Toggle[color]);
+        }
+        
     }
+    
 
     if (is_beeping  && HAL_GetTick() - beep_start_time >= 50)
     {

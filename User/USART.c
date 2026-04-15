@@ -6,9 +6,9 @@
 #define TX_BUF_SIZE 256
 
 struct{
-    u_int8_t data[TX_BUF_SIZE];
-    volatile u_int16_t head;
-    volatile u_int16_t tail;
+    uint8_t data[TX_BUF_SIZE];
+    volatile uint16_t head;
+    volatile uint16_t tail;
 }tx_fifo = {{0},0,0};
 
 volatile uint8_t is_busy = 0;
@@ -54,7 +54,7 @@ int _write(int file, char *ptr, int len)
 {
     for (int i = 0; i < len; i++)
     {
-        u_int8_t next_head = ((tx_fifo.head + 1) % TX_BUF_SIZE);
+        uint8_t next_head = ((tx_fifo.head + 1) % TX_BUF_SIZE);
         while (next_head == tx_fifo.tail);
         tx_fifo.data[tx_fifo.head] = ptr[i];
         tx_fifo.head = next_head;
@@ -63,7 +63,7 @@ int _write(int file, char *ptr, int len)
     if (is_busy == 0)
     {
         is_busy = 1;
-        u_int8_t byte = tx_fifo.data[tx_fifo.tail];
+        uint8_t byte = tx_fifo.data[tx_fifo.tail];
         tx_fifo.tail = (tx_fifo.tail +1) % TX_BUF_SIZE;
         HAL_UART_Transmit_IT(&huart1, &byte, 1);
     }
@@ -78,7 +78,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
     {
         if (tx_fifo.head != tx_fifo.tail)
         {
-            u_int8_t byte = tx_fifo.data[tx_fifo.tail];
+            uint8_t byte = tx_fifo.data[tx_fifo.tail];
             tx_fifo.tail = (tx_fifo.tail +1) % TX_BUF_SIZE;
             HAL_UART_Transmit_IT(&huart1, &byte, 1);
         }
