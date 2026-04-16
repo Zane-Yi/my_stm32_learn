@@ -1,9 +1,8 @@
 build/
 bin/
-*.o
-*.d
-*.elf
-*.bin
-*.hex
-.vscode/
-Drivers/
+obj/
+.eide/log/
+.vscode/ipch/
+.vscode/browse.vc.db
+*.log
+*.tmp
