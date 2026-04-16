@@ -5,10 +5,12 @@ deviceName: null
 packDir: null
 srcDirs:
   - src
-  - hal
-  - Drivers/STM32F1xx_HAL_Driver/Src
-  - User
   - App
+  - DSP
+  - Hard
+  - Service
+  - lib/STM32F1xx_HAL_Driver/Src
+  - Drivers
 virtualFolder:
   name: <virtual_root>
   files: []
@@ -28,11 +30,16 @@ targets:
       incList:
         - src
         - lib/cmsis
-        - Drivers/STM32F1xx_HAL_Driver/Inc
-        - Drivers/CMSIS/Device/ST/STM32F1xx/Include
-        - Drivers/CMSIS/Include
         - User
         - App
+        - Hard
+        - DSP
+        - Service
+        - lib/CMSIS/Include
+        - lib/STM32F1xx_HAL_Driver
+        - lib/STM32F1xx_HAL_Driver/Inc
+        - lib/CMSIS/Device/ST/STM32F1xx/Include
+        - Drivers
       libList: []
     excludeList:
       - hal/STM32F10x_StdPeriph_Driver/src/stm32f10x_bkp.c
@@ -52,6 +59,8 @@ targets:
       - hal/STM32F10x_StdPeriph_Driver/src/stm32f10x_wwdg.c
       - Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_rtc_alarm_template.c
       - Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_tim_template.c
+      - lib/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_rtc_alarm_template.c
+      - lib/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_timebase_tim_template.c
     settings:
       debugger: cortex-debug
     toolchain: GCC
