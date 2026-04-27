@@ -25,6 +25,8 @@
 #include "stm32f10x_it.h"
 
 extern UART_HandleTypeDef huart1;
+extern volatile uint8_t g_protocol_ready;
+
 
 /** @addtogroup STM32F10x_StdPeriph_Examples
   * @{
@@ -169,10 +171,11 @@ void SysTick_Handler(void)
  /**
   * @brief  这个函数就是串口1的中断入口
   */
-void USART1_IRQHandler(void)
-{
-    // 调用 HAL 库的总入口，它会自动帮你处理接力逻辑
+void USART1_IRQHandler(void) {
     HAL_UART_IRQHandler(&huart1);
+    if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) {
+        __HAL_UART_CLEAR_IDLEFLAG(&huart1);
+    }
 }
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
