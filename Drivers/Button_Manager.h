@@ -25,9 +25,9 @@ typedef struct {
 } ButtonHandler_t;
 
 void ButtonManager_Init(void);
-void ButtonManager_Register(ButtonHandler_t* handler, GPIO_TypeDef* port, uint16_t pin,
-                           uint8_t active_level, ButtonCallback_t on_pressed,
-                           ButtonCallback_t on_released);
+void ButtonManager_Register(ButtonHandler_t* handler,
+                            ButtonCallback_t on_pressed,
+                            ButtonCallback_t on_released);
 void ButtonManager_Process(void);
 
 #endif

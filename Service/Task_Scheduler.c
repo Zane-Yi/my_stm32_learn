@@ -1,5 +1,6 @@
 #include "stm32f1xx_hal.h"
 #include "BEEP.h"
+#include "KEY.h"
 #include "USART.h"
 #include "Task_Scheduler.h"
 #include "page_manager.h"
@@ -10,8 +11,8 @@
 static uint32_t last_key_task = 0;
 static uint32_t last_ui_task = 0;
 
-static ButtonHandler_t key_beep_handler;
-static ButtonHandler_t key_led_handler;
+
+
 
 void OnKey_Next_Pressed(void) 
 {
@@ -28,10 +29,10 @@ void Task_Scheduler_Init(void)
     ButtonManager_Init();
     /* BreatheLed_Init(); */
 
-    ButtonManager_Register(&key_beep_handler, GPIOA, GPIO_PIN_0, GPIO_PIN_SET,
+    ButtonManager_Register(KEY_GetKey1(),
                           OnKey_Next_Pressed, NULL);
 
-    ButtonManager_Register(&key_led_handler, GPIOC, GPIO_PIN_13, GPIO_PIN_RESET,
+    ButtonManager_Register(KEY_GetKey2(),
                           OnKey_Toggle_Pressed, NULL);
 }
 

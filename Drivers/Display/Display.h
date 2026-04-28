@@ -1,7 +1,6 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include "Fonts.h"
 #include "LCD9341.h"
 #include "stm32f1xx_hal.h"
 
@@ -26,11 +25,5 @@ void Display_DrawRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 void Display_FillRect(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
                       uint16_t color);
 void Display_ClearLine(uint16_t y, uint16_t height, uint16_t color);
-void Display_DrawAsciiChar(uint16_t x, uint16_t y, char character,
-                           const sFONT *font, uint16_t color);
-void Display_DrawAsciiString(uint16_t x, uint16_t y, const char *text,
-                             const sFONT *font, uint16_t color);
-void Display_Printf(uint16_t x, uint16_t y, const sFONT *font,
-                    uint16_t color, const char *fmt, ...);
 
 #endif

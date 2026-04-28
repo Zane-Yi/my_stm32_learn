@@ -2,20 +2,12 @@
 #define KEY_H_
 
 #include "stm32f1xx_hal.h"
-
-#define KEY_ON      1
-#define KEY_OFF     0
-
-typedef struct{
-    GPIO_TypeDef* port;
-    uint16_t pin;
-    uint8_t last_state;
-    uint8_t active_level;
-}Botton_t;
-
+#include "Button_Manager.h"
 
 void KEY_GPIO_Init (void);
 
+ButtonHandler_t* KEY_GetKey1 (void);
+ButtonHandler_t* KEY_GetKey2 (void);
 
 
 

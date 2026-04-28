@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "Display.h"
+#include "Display_Text.h"
 
 uint8_t PageCommon_SelectNext(uint8_t current, uint8_t count)
 {
@@ -36,7 +37,7 @@ void PageCommon_DrawLabel(uint16_t x,
                      text_width,
                      Font8x16.Height,
                      background_color);
-    Display_DrawAsciiString(x, y, text, &Font8x16, text_color);
+    DisplayText_DrawAsciiString(x, y, text, &Font8x16, text_color);
 }
 
 void PageCommon_DrawMenuItem(uint16_t y, const char *text, uint8_t selected)

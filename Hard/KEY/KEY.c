@@ -1,6 +1,5 @@
 #include "KEY.h"
 
-
 void KEY_GPIO_Init (void)
 {
 
@@ -23,4 +22,24 @@ void KEY_GPIO_Init (void)
     HAL_GPIO_Init(GPIOC,&KEY_GPIO_Init);
 
 }
+static ButtonHandler_t  g_key1 = {
+    .port = GPIOA,
+    .pin = GPIO_PIN_0,
+    .active_level = GPIO_PIN_SET,
 
+};
+
+static ButtonHandler_t  g_key2 = {
+    .port = GPIOC,
+    .pin = GPIO_PIN_13,
+    .active_level = GPIO_PIN_RESET,
+
+};
+
+ButtonHandler_t* KEY_GetKey1 (void) {
+    return &g_key1;
+}
+
+ButtonHandler_t* KEY_GetKey2 (void) {
+    return &g_key2;
+}

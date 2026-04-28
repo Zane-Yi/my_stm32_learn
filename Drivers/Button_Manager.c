@@ -14,20 +14,17 @@ void ButtonManager_Init(void)
         button_list[i] = NULL;
     }
 }
-void ButtonManager_Register(ButtonHandler_t* handler, GPIO_TypeDef* port, uint16_t pin,
-                            uint8_t active_level, ButtonCallback_t on_pressed,
+void ButtonManager_Register(ButtonHandler_t* handler,
+                            ButtonCallback_t on_pressed,
                             ButtonCallback_t on_released) 
 {
     GPIO_PinState pin_state;
     uint8_t current_state;
 
-    if (registered_count >= MAX_BUTTON_HANDLERS) return;
+    if ((handler == NULL) || (handler->port == NULL) || (registered_count >= MAX_BUTTON_HANDLERS)) return;
 
-    handler->port = port;
-    handler->pin = pin;
-    handler->active_level = active_level;
-    pin_state = HAL_GPIO_ReadPin(port, pin);
-    current_state = (pin_state == active_level) ? 1U : 0U;
+    pin_state = HAL_GPIO_ReadPin(handler->port, handler->pin);
+    current_state = (pin_state == handler->active_level) ? 1U : 0U;
     handler->last_state = current_state;
     handler->last_raw_state = current_state;
     handler->last_change_tick = HAL_GetTick();
