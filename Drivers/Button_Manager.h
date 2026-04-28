@@ -18,6 +18,8 @@ typedef struct {
     uint16_t pin;                 
     uint8_t active_level;         
     uint8_t last_state;           
+    uint8_t last_raw_state;       
+    uint32_t last_change_tick;    
     ButtonCallback_t on_pressed;  
     ButtonCallback_t on_released; 
 } ButtonHandler_t;

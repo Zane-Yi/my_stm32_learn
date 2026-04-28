@@ -1,6 +1,5 @@
-#include "Init.h"
 #include "Task_Scheduler.h"
-
+#include "Init.h"
 
 int main (void)
 {

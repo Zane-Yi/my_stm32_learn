@@ -2,7 +2,7 @@
 #include "BEEP.h"
 #include "USART.h"
 #include "Task_Scheduler.h"
-#include "Touch_Paint_Page.h"
+#include "page_manager.h"
 #include "breathe_led.h"
 #include "Button_Manager.h"
 
@@ -15,12 +15,12 @@ static ButtonHandler_t key_led_handler;
 
 void OnKey_Next_Pressed(void) 
 {
-    TouchPaintPage_HandleNext();
+    PageManager_Next();
 }
 
 void OnKey_Toggle_Pressed(void) 
 {
-    TouchPaintPage_HandleConfirm();
+    PageManager_Enter();
 }
 
 void Task_Scheduler_Init(void) 
@@ -52,6 +52,6 @@ void System_Task_Runner(void)
 
     if ((HAL_GetTick() - last_ui_task) >= 20) {
         last_ui_task = HAL_GetTick();
-        TouchPaintPage_Update();
+        PageManager_Update();
     }
 }

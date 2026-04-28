@@ -9,8 +9,7 @@
 #include "Button_Manager.h"
 #include "breathe_led.h"
 #include "Task_Scheduler.h"
-#include "Touch_Paint_Page.h"
-
+#include "page_manager.h"
 void All_Init (void)
 {
     HAL_Init();
@@ -20,6 +19,6 @@ void All_Init (void)
     KEY_GPIO_Init();
     BEEP_GPIO_Init();
     /* PWM_Init(); */
-    TouchPaintPage_Init();
+    PageManager_Init();
     Task_Scheduler_Init();
 }
